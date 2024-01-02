@@ -3,6 +3,7 @@ import {LicensePlate} from '../license-plate';
 
 @Component({
   selector: 'app-license-plate',
+  standalone: true,
   templateUrl: './license-plate.component.html',
   styleUrls: ['./license-plate.component.css']
 })
