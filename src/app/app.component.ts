@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import {CALIFORNIA_PLATE, LICENSE_PLATES} from "./mock-data";
-import {LicensePlate} from "./license-plate";
-import {HelloComponent} from "./hello/hello.component";
+import {NavigationComponent} from './navigation/navigation.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HelloComponent],
-  template: `
-      <app-hello></app-hello>
-  `
+  imports: [
+    NavigationComponent,
+    RouterOutlet
+  ],
+  templateUrl: "app.component.html"
 })
 export class AppComponent {
-  licensePlates: LicensePlate[] = LICENSE_PLATES;
-  licensePlate: LicensePlate = CALIFORNIA_PLATE;
 }

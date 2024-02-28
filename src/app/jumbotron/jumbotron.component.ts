@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-jumbotron',
@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./jumbotron.component.css']
 })
 export class JumbotronComponent {
+
+  @Input() title!: string;
+  @Input() description!: string;
 
 }
