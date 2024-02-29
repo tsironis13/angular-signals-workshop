@@ -1,27 +1,19 @@
-# NgxTraining
+# Server-side rendering workshop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+## How to create your own cloud environment (GitHub Codespace) for this workshop?
+- Go to https://github.dev/alcfeoh/ngx-training/tree/ssr-workshop
+- Then open the terminal view by clicking on the 'problems' panel in the bottom-left corner:
 
-## Development server
+![img_1.png](img_1.png)
+- Then click on "Continue working in GitHub Codespaces":
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+![img.png](img.png)
+- This will fork the project into your own GitHub Codespace. Select the kind of virtual machine you want (the first option is fine):
 
-## Code scaffolding
+![img_2.png](img_2.png)
+- Run `npm install`in the terminal. You're all set!
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running it locally
+- You can clone this repository locally if you want. Then run `npm install`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
