@@ -18,4 +18,8 @@ Slides are available at: http://bit.ly/at-ssr-workshop
 ## Running it locally
 - You can clone this repository locally if you want. Then run `npm install`.
 
+## List of commands used in this project
 
+- `npm run build`: Compiles our code and outputs it in the `dist` folder. This is a default Angular CLI command.
+- `npm run serve-build-static`: Runs a basic static HTTP server using the code built in the `dist` folder. This is a custom command to run our code without a Node.js backend server.
+- `npm run serve:ssr:ngx-training`: Runs the Node.js server built by Angular SSR. This commands gets added by the Angular SSR CLI schematics (`ng add @angular/ssr`).
