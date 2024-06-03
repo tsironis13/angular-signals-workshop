@@ -10,11 +10,12 @@ import {CurrencyService} from '../currency.service';
 })
 export class CurrencySwitcherComponent {
 
-  showItems = false;
-  service = inject(CurrencyService);
+  protected showItems = false;
+  protected service = inject(CurrencyService);
+  protected currencyInfo = this.service.getCurrencyInfo();
 
   changeCurrency(currency: Currency): void {
-    // TODO Call CurrencyService to change the currency
+    this.service.setCurrency(currency);
     this.showItems = false;
   }
 }
