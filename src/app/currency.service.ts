@@ -1,10 +1,14 @@
-import {computed, Injectable, Signal, signal} from '@angular/core';
+import {computed, inject, Injectable, Signal, signal} from '@angular/core';
 import {Currency} from './currency-switcher/currency';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {HttpClient} from '@angular/common/http';
 
 export interface CurrencyInfo {
   currency: Currency;
   exchangeRate: number;
 }
+
+export type ExchangeRates = Record<Currency, number>;
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +20,17 @@ export class CurrencyService {
 
   // A signal that returns the current currency along with its latest exchange rate
   private readonly currencyInfo = computed<CurrencyInfo>(() => {
-    return {currency: this.currency(), exchangeRate: 1};
+    const rateForCurrency = this.exchangeRates()[this.currency()];
+    return {currency: this.currency(), exchangeRate: rateForCurrency};
   })
+
+  private http = inject(HttpClient);
+  // We convert our HTTP request (Observable) into a Signal using toSignal()
+  private exchangeRates = toSignal(
+    this.http.get<ExchangeRates>("https://lp-store-server.vercel.app/rates"),
+    // We pass a default meaningful value to use while the data is being loaded
+    {initialValue: {USD: 1, GBP: 1, EUR: 1}}
+  );
 
   getCurrencyInfo(): Signal<CurrencyInfo> {
     return this.currencyInfo;
@@ -27,7 +40,4 @@ export class CurrencyService {
   setCurrency(currency: Currency): void {
     this.currency.set(currency);
   }
-
-  // TODO Handle exchange rates for each currency using the endpoint: https://lp-store-server.vercel.app/rates
-
 }
