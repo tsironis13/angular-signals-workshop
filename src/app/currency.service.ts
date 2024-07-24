@@ -4,43 +4,31 @@ import {
   Currency,
   CurrencyInfo,
   ExchangeRates,
-  USD,
 } from './currency-switcher/currency';
 import { HttpClient } from '@angular/common/http';
-import { of, retry, share, switchMap, timer } from 'rxjs';
+import { retry, share, switchMap, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CurrencyService {
-  private pollingInterval = 30000;
-  private currencySignal = signal<Currency>(USD);
+  readonly #pollingInterval = 30000;
+  readonly #exchangeRates = toSignal(this.fetchExchangeRates(), {
+    initialValue: { USD: 1, EUR: 1, GBP: 1 },
+  });
 
   private http = inject(HttpClient);
 
-  private exchangeRatesSignal = toSignal(this.fetchExchangeRates());
-
-  currencyInfo = computed<CurrencyInfo | null>(() => {
-    const rates = this.exchangeRatesSignal();
-
-    return rates
-      ? {
-          currency: this.currencySignal(),
-          exchangeRate: rates[this.currencySignal().abreviation],
-        }
-      : null;
+  readonly currency = signal<Currency>('USD');
+  readonly currencyInfo = computed<CurrencyInfo>(() => {
+    return {
+      currency: this.currency(),
+      exchangeRate: this.#exchangeRates()[this.currency()],
+    };
   });
 
-  set currency(cur: Currency) {
-    this.currencySignal.set(cur);
-  }
-
-  getCurrency() {
-    return this.currencySignal.asReadonly();
-  }
-
   fetchExchangeRates() {
-    return timer(1, this.pollingInterval).pipe(
+    return timer(1, this.#pollingInterval).pipe(
       switchMap(() =>
         this.http.get<ExchangeRates>('https://lp-store-server.vercel.app/rates')
       ),

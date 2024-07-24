@@ -1,21 +1,17 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { LicensePlate } from '../license-plate';
-import { CurrencyService } from '../currency.service';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { CurrencyInfo } from '../currency-switcher/currency';
 
 @Component({
   selector: 'app-license-plate',
   standalone: true,
   templateUrl: './license-plate.component.html',
   styleUrls: ['./license-plate.component.css'],
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, CurrencyPipe],
 })
 export class LicensePlateComponent {
-  @Input()
-  plate!: LicensePlate;
-
-  @Input()
-  buttonText!: string;
-
-  service = inject(CurrencyService);
+  plate = input.required<LicensePlate>();
+  buttonText = input.required<string>();
+  currencyInfo = input.required<CurrencyInfo>();
 }

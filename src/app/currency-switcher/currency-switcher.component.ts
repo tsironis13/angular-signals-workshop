@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Currency, EUR, GBP, USD } from './currency';
+import { Currency } from './currency';
 import { CurrencyService } from '../currency.service';
 
 @Component({
@@ -10,15 +10,12 @@ import { CurrencyService } from '../currency.service';
 })
 export class CurrencySwitcherComponent {
   showItems = false;
-  service = inject(CurrencyService);
 
-  protected readonly USD = USD;
-  protected readonly EYR = EUR;
-  protected readonly GBP = GBP;
+  currencyService = inject(CurrencyService);
 
   changeCurrency(currency: Currency): void {
     // TODO Call CurrencyService to change the currency
     this.showItems = false;
-    this.service.currency = currency;
+    this.currencyService.currency.set(currency);
   }
 }
